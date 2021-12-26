@@ -1,7 +1,5 @@
 import { searchForShow } from "../../services/api/search"
 import { MovieData } from "../../types/movieTypes"
-// import { useAppDispatch } from "../../hooks/hooks"
-// import { setResult } from "../../features/search/searchSlice"
 
 const tidyResults = (results: any[]) => {
   const newResults: MovieData[] = results.map((result: any) => {

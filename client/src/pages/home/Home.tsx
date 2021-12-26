@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
 import Search from "../../components/search/Search";
 import ShowsList from "../../components/shows/ShowsList";
 import { MovieData } from "../../types/movieTypes";

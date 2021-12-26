@@ -4,35 +4,40 @@ import { useParams } from "react-router-dom";
 import SeasonsList from "../../components/seasons/SeasonsList";
 import { Link } from "react-router-dom";
 import styles from "./Details.module.scss";
+import { fetchSeasons, fetchShow } from "../../features/show/showHelpers";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setShow } from "../../features/show/showSlice";
 
 export default function Details() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [showName, setShowName] = useState<string>("");
-  const [seasons, setSeasons] = useState([]);
    
-
+  const dispatch = useAppDispatch();
+  
   const { id } = useParams();
+  
+  useEffect(() => { 
+    setIsLoading(true);
+    
+  }, [id]);
+  const showName = useAppSelector(state => state.shows.name) || "";
+  const seasons = useAppSelector(state => state.shows.seasons) || [];
 
-  const fetchShow = async () => {
+  const getShowData = async () => {
     if (!id) return;
 
-    const show = await searchForShowById(id);
-    setShowName(show.name);
+    const completeShowData = await fetchShow(id);
+    dispatch(setShow(completeShowData));
     setIsLoading(false);
-  }
-
-  const fetchSeasons = async () => {
-    if (!id) return;
-
-    const seasons = await searchForSeasons(id);
-    setSeasons(seasons);
-  }
+  };
   
 
   useEffect(() => {
     setIsLoading(true);
-    fetchShow();
-    fetchSeasons();
+    // first get the whole show
+    getShowData()
+    // also get the seasons
+    // then set the show in redux store
+    // then set loading false
   }, [id]);
 
   

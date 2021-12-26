@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { MovieData } from "../../types/movieTypes";
-import { searchForSeasons } from "../../services/api/search";
+import { useAppDispatch } from "../../hooks/hooks";
 import { useNavigate } from "react-router-dom";
+import { setShow } from "../../features/show/showSlice";
 import styles from "./Shows.module.scss";
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 export default function ShowListItem({ show }: Props) {
   const [seasons, setSeasons] = useState([]);
   const navigator = useNavigate();
+  const dispatch = useAppDispatch();
   
   if (!show) return null;
 

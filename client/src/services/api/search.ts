@@ -17,6 +17,7 @@ export const searchForShowById = async (id: string) => {
 }
 
 export const searchForEpisodesBySeasonId = async (id: string) => { 
+  console.log("hi")
   const response = await axios(`${BASE_URL}${EPISODES_QUERY(id)}`);
   return response.data;
 }
