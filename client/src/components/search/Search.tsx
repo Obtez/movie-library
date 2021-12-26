@@ -1,29 +1,26 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { fetchEpisodes } from "../../features/search/searchHelpers";
 import { searchForShow } from "../../services/api/search";
 import { MovieData } from "../../types/movieTypes";
+import { useAppDispatch } from "../../hooks/hooks";
+import { setResult } from "../../features/search/searchSlice";
 import styles from "./Search.module.scss";
 
-
-interface Props {
-  updateResults: (results: MovieData[]) => void;
-}
-
-export default function Search({ updateResults }: Props) {
+export default function Search() {
   const [search, setSearch] = useState("");
+
+  const dispatch = useAppDispatch();
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
    }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (search.length > 0) {
-        searchForShow(search).then(response => {
-          updateResults(response)
-        }).catch(error => {
-          console.log(error);
-      })
+      const results = await fetchEpisodes(search);
+      dispatch(setResult(results));
+      
     }
   }
 
