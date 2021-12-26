@@ -2,13 +2,17 @@ export interface MovieData {
   id: number;
   name: string;
   image: string;
+  totalEpisodes: number;
+  watchedEpisodes: number;
 }
 
 export interface ExpandedShowData {
   id: number;
   name: string;
   image: string;
-  seasons: SeasonData[];
+  totalEpisodes: number;
+  watchedEpisodes: number;
+  seasons: ExpandedSeasonData[];
 }
 
 export interface SeasonData {
@@ -30,4 +34,5 @@ export interface EpisodeData {
   name: string;
   summary: string;
   airdate: string;
+  watched: boolean;
 }

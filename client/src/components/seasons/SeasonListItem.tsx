@@ -1,24 +1,21 @@
 import { useState, useEffect, MouseEvent } from "react";
 import { searchForEpisodesBySeasonId } from "../../services/api/search";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import EpisodesList from "../episodes/EpisodesList";
 import styles from "./Seasons.module.scss";
 
 interface Props {
-  season: any;
+  seasonID: number;
 }
 
-export default function SeasonListItem({ season }: Props) {
+export default function SeasonListItem({ seasonID }: Props) {
   const [episodes, setEpisodes] = useState([]);
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [showEpisodes, setShowEpisodes] = useState<boolean>(false);
 
   
-  useEffect(() => {
-    if (season && episodes.length === 0) {
-      searchForEpisodesBySeasonId(season.id).then(setEpisodes);
-    }
-  }, [season]);
-
+  const dispatch = useAppDispatch();
+  const season = useAppSelector(state => state.shows.seasons.find(season => season.id === seasonID));
   if (!season) return null;
 
   const toggleShowDetails = () => { 
@@ -32,7 +29,7 @@ export default function SeasonListItem({ season }: Props) {
     setShowEpisodes(!showEpisodes);
   }
 
-  const { number, episodeOrder, endDate } = season;
+  const { number, endDate } = season;
 
   return (
     <li className={styles.seasonItem} onClick={toggleShowDetails}>
@@ -41,11 +38,11 @@ export default function SeasonListItem({ season }: Props) {
       {
         showDetails ? (
         <div onClick={(e) => e.stopPropagation()}>
-          <p>Episodes: {episodeOrder}</p>
+          <p>Episodes: {season.episodes.length}</p>
           <p>End Date: {endDate}</p>
           <div onClick={toggleShowEpisodes}>
             <h3>Episodes</h3>
-            {showEpisodes && <EpisodesList episodes={episodes} />}
+            {showEpisodes && <EpisodesList episodes={season.episodes} />}
           </div>
         </div>
         ) : null

@@ -20,7 +20,7 @@ export default function Details() {
     
   }, [id]);
   const showName = useAppSelector(state => state.shows.name) || "";
-  const seasons = useAppSelector(state => state.shows.seasons) || [];
+  const show = useAppSelector(state => state.shows);
 
   const getShowData = async () => {
     if (!id) return;
@@ -52,8 +52,9 @@ export default function Details() {
           <p>Loading...</p>
         ) : (
         <main>
-          <h1 className={styles.showName}>{ showName }</h1>
-          <SeasonsList seasons={seasons} />
+              <h1 className={styles.showName}>{showName}</h1>
+              <p>Watched Episodes: {show.watchedEpisodes} / { show.totalEpisodes }</p>
+          <SeasonsList />
         </main>
         )
       }

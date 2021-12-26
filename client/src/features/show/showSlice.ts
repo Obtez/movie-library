@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store/store";
-import { SeasonData, EpisodeData } from "../../types/movieTypes";
+import { SeasonData, EpisodeData, ExpandedSeasonData } from "../../types/movieTypes";
 
 interface ShowState {
   id: number;
   name: string;
   image: string;
-  seasons: SeasonData[];
+  seasons: ExpandedSeasonData[];
+  totalEpisodes: number;
+  watchedEpisodes: number;
 }
 
 const initialState: ShowState = {
@@ -14,6 +16,8 @@ const initialState: ShowState = {
   name: "",
   image: "",
   seasons: [],
+  totalEpisodes: 0,
+  watchedEpisodes: 0,
 }
 
 export const showSlice = createSlice({
@@ -25,8 +29,10 @@ export const showSlice = createSlice({
       state.name = action.payload.name;
       state.image = action.payload.image;
       state.seasons = action.payload.seasons;
-    }
-  },
+      state.totalEpisodes = action.payload.totalEpisodes;
+      state.watchedEpisodes = action.payload.watchedEpisodes;
+    },
+  }
 });
 
 export const { setShow } = showSlice.actions;
