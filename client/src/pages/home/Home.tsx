@@ -8,7 +8,6 @@ import styles from "./Home.module.scss";
 
 export default function Home() {
   const [results, setResults] = useState<MovieData[]>([]);
-  const [seasonData, setSeasonData] = useState([])
 
   const updateResults = (rawResults: any[]) => {
     const strippedResults = rawResults.map((r: any) => {

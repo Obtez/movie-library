@@ -18,14 +18,16 @@ export default function EpisodeListItem({ episode }: Props) {
 
   
   useEffect(() => {
-    setEpisodeData({
-      id: episode.id,
-      number: episode.number,
-      name: episode.name,
-      summary: episode.summary,
-      airdate: episode.airdate,
-    })
-  }, [])
+    if (episodeData === emptyEpisode) {
+      setEpisodeData({
+        id: episode.id,
+        number: episode.number,
+        name: episode.name,
+        summary: episode.summary,
+        airdate: episode.airdate,
+      })
+    }
+  })
   
   if (!episode) return null;
 

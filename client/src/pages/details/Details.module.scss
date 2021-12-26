@@ -1,0 +1,17 @@
+.detailsContainer {
+  padding: .25rem .5rem;
+  header {
+    margin-bottom: 2rem;
+
+    a {
+      font-weight: 500;
+      text-decoration: none;
+    }
+  }
+
+  main {
+    .showName {
+      text-align: center;
+    }
+  }
+}
