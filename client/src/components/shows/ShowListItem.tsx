@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MovieData } from "../../types/movieTypes";
 import { searchForSeasons } from "../../services/api/search";
 import { useNavigate } from "react-router-dom";
+import styles from "./Shows.module.scss";
 
 interface Props {
   show: MovieData;
@@ -21,12 +22,14 @@ export default function ShowListItem({ show }: Props) {
   }
 
   return (
-   <li>
-    <h2>{ name }</h2>
+   <li className={styles.showItem}>
     {
       image && <img src={ image } alt={ name } />
     }
-    <button onClick={navigateToDetails}>Get Seasons</button>
+    <div className={styles.cardTextContainer}>
+      <h2>{ name }</h2>
+      <button onClick={navigateToDetails}>Get Details</button>
+    </div>
   </li>
   )
 }

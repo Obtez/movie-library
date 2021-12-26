@@ -3,6 +3,7 @@ import Search from "../../components/search/Search";
 import ShowsList from "../../components/shows/ShowsList";
 import { searchForShow, searchForSeasons } from "../../services/api/search";
 import { MovieData } from "../../types/movieTypes";
+import styles from "./Home.module.scss";
 
 
 export default function Home() {
@@ -30,13 +31,16 @@ export default function Home() {
   }
 
   return (
-    <section>
-      <h1>Movies &amp; TV-Shows Library</h1>
-     <Search updateResults={updateResults} />
-
-      {
-        results.length > 0 && <ShowsList shows={results} />
-      }
-    </section>
+    <main className={styles.container}>
+        <header className={styles.headerContainer}>
+          <h1>TV-Shows Library</h1>
+          <Search updateResults={updateResults} />
+        </header>
+        <section>
+          {
+            results.length > 0 && <ShowsList shows={results} />
+          }
+        </section>
+    </main>
   )
 }

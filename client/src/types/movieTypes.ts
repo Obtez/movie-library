@@ -4,4 +4,10 @@ export interface MovieData {
   image: string;
 }
 
-
+export interface EpisodeData {
+  id: number;
+  number: number;
+  name: string;
+  summary: string;
+  airdate: string;
+}

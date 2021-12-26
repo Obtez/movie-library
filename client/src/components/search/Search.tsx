@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { searchForShow } from "../../services/api/search";
 import { MovieData } from "../../types/movieTypes";
+import styles from "./Search.module.scss";
 
 
 interface Props {
@@ -9,21 +10,10 @@ interface Props {
 
 export default function Search({ updateResults }: Props) {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([]);
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
    }
-  
-  // const stripResults = (rawResults: any[]): MovieData[] => {
-  //   return rawResults.map(r => {
-  //     return {
-  //       id: r.show.id,
-  //       name: r.show.name,
-  //       image: r.show.image.medium,
-  //     }
-  //   })
-  // }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,13 +28,13 @@ export default function Search({ updateResults }: Props) {
   }
 
   return (
-   <form onSubmit={handleSubmit}>
+   <form className={styles.searchForm} onSubmit={handleSubmit}>
     <label htmlFor="search">
-      Search:
+      {/* Search for a show */}
     </label>
-    <input type="text" value={search} name="search" id="search" onChange={handleChange} required />
+    <input type="search" value={search} name="search" id="search" onChange={handleChange} placeholder="Search for a show" required />
 
-    <button type="submit">Submit</button>
+    <button type="submit">Search</button>
   </form>
   )
 }
